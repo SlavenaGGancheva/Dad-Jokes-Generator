@@ -14,16 +14,25 @@ const apiURL = "https://api.api-ninjas.com/v1/dadjokes";
 
 const getJoke = async () => {
 
-    joke.innerText = "Updating...";
-    btnEl.disabled = true;
-    btnEl.innerText = "Loading..."
-    
-    const response = await fetch(apiURL, options)
-    const data = await response.json();
+    try {
+        joke.innerText = "Updating...";
+        btnEl.disabled = true;
+        btnEl.innerText = "Loading..."
 
-    jokeEl.innerText = data[0].joke
-    btnEl.disabled = false;
-    btnEl.innerText = "Tell me a joke"
+        const response = await fetch(apiURL, options)
+        const data = await response.json();
+
+        jokeEl.innerText = data[0].joke
+        btnEl.disabled = false;
+        btnEl.innerText = "Tell me a joke"
+    } catch (error) {
+        jokeEl.innerText = "An error occured, try again later!"
+        btnEl.disabled = false;
+        btnEl.innerText = "Tell me a joke";
+        console.log(error)
+    }
+
+    
 }
 
 btnEl.addEventListener("click", getJoke)
